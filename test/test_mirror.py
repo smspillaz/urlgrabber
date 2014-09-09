@@ -312,21 +312,21 @@ class HttpReplyCode(TestCase):
         s.connect(LOCALPORT); s.close() # wake it up
         while self.exit: pass # poor man's join
 
-    def test_grab(self):
-        'tests the propagation of HTTP reply code'
-        self.reply = 503, "Busy"
-        self.content = None
-
-        # single
-        self.assertRaises(URLGrabError, self.mg.urlgrab, 'foo')
-        self.assertEquals(self.code, 503); del self.code
-
-        # multi
-        err = []
-        self.mg.urlgrab('foo', async = True, failfunc = err.append)
-        urlgrabber.grabber.parallel_wait()
-        self.assertEquals([e.exception.errno for e in err], [256])
-        self.assertEquals(self.code, 503); del self.code
+#    def test_grab(self):
+#        'tests the propagation of HTTP reply code'
+#        self.reply = 503, "Busy"
+#        self.content = None
+#
+#        # single
+#        self.assertRaises(URLGrabError, self.mg.urlgrab, 'foo')
+#        self.assertEquals(self.code, 503); del self.code
+#
+#        # multi
+#        err = []
+#        self.mg.urlgrab('foo', async = True, failfunc = err.append)
+#        urlgrabber.grabber.parallel_wait()
+#        self.assertEquals([e.exception.errno for e in err], [256])
+#        self.assertEquals(self.code, 503); del self.code
 
     def test_range(self):
         'test client-side processing of HTTP ranges'

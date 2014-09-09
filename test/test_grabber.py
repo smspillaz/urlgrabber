@@ -30,7 +30,7 @@ import tempfile, random, os
 from six.moves import urllib
 import socket
 
-from io import StringIO
+from io import BytesIO, StringIO
 from base_test_code import *
 
 import urlgrabber
@@ -61,28 +61,29 @@ class FileObjectTests(TestCase):
     def test_readall(self):
         "PYCurlFileObject .read() method"
         s = self.wrapper.read()
-        self.fo_output.write(s)
+        self.fo_output.write(unicode(s) if not six.PY3 else s)
         self.assert_(reference_data == self.fo_output.getvalue())
 
     def test_readline(self):
         "PyCurlFileObject .readline() method"
         while 1:
             s = self.wrapper.readline()
-            self.fo_output.write(s)
+            self.fo_output.write(unicode(s) if not six.PY3 else s)
             if not s: break
         self.assert_(reference_data == self.fo_output.getvalue())
 
     def test_readlines(self):
         "PyCurlFileObject .readlines() method"
         li = self.wrapper.readlines()
-        self.fo_output.write(''.join(li))
+        out = ''.join(li)
+        self.fo_output.write(unicode(out) if not six.PY3 else out)
         self.assert_(reference_data == self.fo_output.getvalue())
 
     def test_smallread(self):
         "PyCurlFileObject .read(N) with small N"
         while 1:
             s = self.wrapper.read(23)
-            self.fo_output.write(s)
+            self.fo_output.write(unicode(s) if not six.PY3 else s)
             if not s: break
         self.assert_(reference_data == self.fo_output.getvalue())
     
@@ -138,7 +139,7 @@ class URLGrabberTestCase(TestCase):
     
     def setUp(self):
         
-        self.meter = text_progress_meter( fo=StringIO() )
+        self.meter = text_progress_meter( fo=BytesIO() )
         pass
     
     def tearDown(self):
