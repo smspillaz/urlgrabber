@@ -30,7 +30,7 @@ import tempfile, random, os
 from six.moves import urllib
 import socket
 
-from io import BytesIO, StringIO
+from io import StringIO
 from base_test_code import *
 
 import urlgrabber
@@ -139,7 +139,7 @@ class URLGrabberTestCase(TestCase):
     
     def setUp(self):
         
-        self.meter = text_progress_meter( fo=BytesIO() )
+        self.meter = text_progress_meter( fo=StringIO() )
         pass
     
     def tearDown(self):

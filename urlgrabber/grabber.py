@@ -2060,10 +2060,9 @@ def _readlines(fd):
     buf = os.read(fd, 4096)
     if not buf: return None
     # whole lines only, no buffering
-    while buf[-1] != b'\n':
+    while buf.decode('utf-8')[-1] != '\n':
         buf += os.read(fd, 4096)
-    result = buf[:-1].split(b'\n')
-    return result if not six.PY3 else result.decode('utf-8')
+    return buf.decode('utf-8')[:-1].split('\n')
 
 import subprocess
 
