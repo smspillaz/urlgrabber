@@ -42,7 +42,7 @@ from urlgrabber.progress import text_progress_meter
 class FileObjectTests(TestCase):
     
     def setUp(self):
-        self.filename = tempfile.mktemp()
+        _, self.filename = tempfile.mkstemp()
         fo = open(self.filename, 'wb')
         fo.write(reference_data.encode('utf-8'))
         fo.close()
@@ -89,7 +89,7 @@ class FileObjectTests(TestCase):
 class HTTPTests(TestCase):
     def test_reference_file(self):
         "download reference file via HTTP"
-        filename = tempfile.mktemp()
+        _, filename = tempfile.mkstemp()
         grabber.urlgrab(ref_http, filename)
 
         fo = open(filename, 'rb' if not six.PY3 else 'r')
@@ -123,7 +123,7 @@ class URLGrabberModuleTestCase(TestCase):
     
     def test_urlgrab(self):
         "module-level urlgrab() function"
-        outfile = tempfile.mktemp()
+        _, outfile = tempfile.mkstemp()
         filename = urlgrabber.urlgrab('http://www.python.org', 
                                     filename=outfile)
         os.unlink(outfile)
@@ -367,7 +367,7 @@ class CheckfuncTestCase(TestCase):
     def setUp(self):
         cf = (self._checkfunc, ('foo',), {'bar': 'baz'})
         self.g = grabber.URLGrabber(checkfunc=cf)
-        self.filename = tempfile.mktemp()
+        _, self.filename = tempfile.mkstemp()
         self.data = short_reference_data
         
     def tearDown(self):
@@ -440,7 +440,7 @@ class RegetTestBase:
     def setUp(self):
         self.ref = short_reference_data
         self.grabber = grabber.URLGrabber(reget='check_timestamp')
-        self.filename = tempfile.mktemp()
+        _, self.filename = tempfile.mkstemp()
         self.hl = len(self.ref) / 2
         self.url = 'OVERRIDE THIS'
 
@@ -522,7 +522,7 @@ class HTTPRegetTests(FTPRegetTests):
 class FileRegetTests(HTTPRegetTests):
     def setUp(self):
         self.ref = short_reference_data
-        tmp = tempfile.mktemp()
+        _, tmp = tempfile.mkstemp()
         tmpfo = open(tmp, 'wb' if not six.PY3 else 'w')
         tmpfo.write(self.ref)
         tmpfo.close()
@@ -534,7 +534,7 @@ class FileRegetTests(HTTPRegetTests):
 
         self.grabber = grabber.URLGrabber(reget='check_timestamp',
                                           copy_local=1)
-        self.filename = tempfile.mktemp()
+        _, self.filename = tempfile.mkstemp()
         self.hl = len(self.ref) / 2
 
     def tearDown(self):
