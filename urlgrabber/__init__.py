@@ -51,5 +51,3 @@ __author__  = 'Michael D. Stenner <mstenner@linux.duke.edu>, ' \
               'Seth Vidal <skvidal@fedoraproject.org>' \
               'Zdenek Pavlas <zpavlas@redhat.com>'
 __url__     = 'http://urlgrabber.baseurl.org/'
-
-from urlgrabber.grabber import urlgrab, urlopen, urlread
