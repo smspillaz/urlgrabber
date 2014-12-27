@@ -1353,7 +1353,7 @@ class PyCurlFileObject(object):
                 location = location.strip()
                 self.scheme = urllib.parse.urlsplit(str(location,
                                                         encoding="utf-8"))[0]
-                self.url = location
+                self.url = str(location, encoding="utf-8")
                 
             self._hdr_dump += buf
             end_str = b'\r\n'
