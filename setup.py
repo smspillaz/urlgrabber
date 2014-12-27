@@ -39,8 +39,8 @@ classifiers = [
 # load up distutils
 if __name__ == '__main__':
   config = globals().copy()
-  keys = copy.deepcopy(config.keys())
-  for k in keys:
+  config_copy = copy.deepcopy(config)
+  for k in config_copy.keys():
     #print '%-20s -> %s' % (k, config[k])
     if k.startswith('_'): del config[k]
 
