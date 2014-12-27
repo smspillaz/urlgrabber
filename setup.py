@@ -1,5 +1,4 @@
 # urlgrabber distutils setup
-import copy
 import re as _re
 import urlgrabber as _urlgrabber
 
@@ -39,7 +38,10 @@ classifiers = [
 # load up distutils
 if __name__ == '__main__':
   config = globals().copy()
-  config_copy = copy.deepcopy(config)
+  config_copy = {}
+  for k, v in config.items():
+    config_copy[k] = v
+
   for k in config_copy.keys():
     #print '%-20s -> %s' % (k, config[k])
     if k.startswith('_'): del config[k]
