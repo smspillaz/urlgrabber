@@ -217,7 +217,7 @@ def _term_add_bar(tl, bar_max_length, pc):
     bar  = '='*int(blen * pc)
     if (blen * pc) - int(blen * pc) >= 0.5:
         bar += '-'
-    return tl.add(' [%-*.*s]' % (blen, blen, bar))
+    return tl.add(' [%-*.*s]' % (int(blen), int(blen), bar))
 
 def _term_add_end(tl, osize, size):
     if osize: # osize should be None or >0, but that's been broken.
@@ -637,7 +637,7 @@ class RateEstimator:
         self.start_time = now
         self.last_update_time = now
         self.last_amount_read = 0
-        self.ave_rate = None
+        self.ave_rate = 0
         
     def update(self, amount_read, now=None):
         if now is None: now = time.time()
@@ -649,7 +649,7 @@ class RateEstimator:
             # if we just started this file, all bets are off
             self.last_update_time = now
             self.last_amount_read = amount_read
-            self.ave_rate = None
+            self.ave_rate = 0
             return
 
         #print 'times', now, self.last_update_time
