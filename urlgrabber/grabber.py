@@ -1351,9 +1351,8 @@ class PyCurlFileObject(object):
             if buf.lower().find(location_str) != -1:
                 location = b':'.join(buf.split(b':')[1:])
                 location = location.strip()
-                self.scheme = urllib.parse.urlsplit(str(location,
-                                                        encoding="utf-8"))[0]
-                self.url = str(location, encoding="utf-8")
+                self.scheme = urllib.parse.urlsplit(six.b(location))[0]
+                self.url = six.b(location)
                 
             self._hdr_dump += buf
             end_str = b'\r\n'
