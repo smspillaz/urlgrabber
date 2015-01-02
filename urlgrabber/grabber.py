@@ -1283,7 +1283,7 @@ class PyCurlFileObject(object):
                 if self.opts.progress_obj:
                     size  = self.size + self._reget_length
                     self.opts.progress_obj.start(self._prog_reportname, 
-                                                 urllib.parse.unquote(self.url),
+                                                 urllib.parse.unquote(self.url.decode("utf-8")),
                                                  self._prog_basename, 
                                                  size=size,
                                                  text=self.opts.text)
@@ -1595,7 +1595,7 @@ class PyCurlFileObject(object):
             if self._error[1]:
                 msg = self._error[1]
                 err = URLGrabError(14, msg)
-                err.url = urllib.parse.unquote(self.url)
+                err.url = urllib.parse.unquote(self.url.decode("utf-8"))
                 raise err
 
     def _do_open(self):
