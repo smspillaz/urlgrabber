@@ -1352,7 +1352,7 @@ class PyCurlFileObject(object):
                 location = b':'.join(buf.split(b':')[1:])
                 location = location.strip()
                 self.scheme = urllib.parse.urlsplit(location)[0]
-                self.url = six.u(location)
+                self.url = location
                 
             self._hdr_dump += buf
             end_str = b'\r\n'
@@ -1505,7 +1505,7 @@ class PyCurlFileObject(object):
             
             code = self.http_code
             errcode = e.args[0]
-            errurl = urllib.parse.unquote(self.url)
+            errurl = urllib.parse.unquote(self.url.decode("utf-8"))
             
             if self._error[0]:
                 errcode = self._error[0]
