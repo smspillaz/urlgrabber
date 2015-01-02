@@ -1237,7 +1237,7 @@ class PyCurlFileObject(object):
         self.fo = None
         self._hdr_dump = b''
         self._parsed_hdr = None
-        self.url = url
+        self.url = url.encode('utf-8')
         self.scheme = urllib.parse.urlsplit(self.url)[0]
         self.filename = filename
         self.append = False
@@ -1283,7 +1283,7 @@ class PyCurlFileObject(object):
                 if self.opts.progress_obj:
                     size  = self.size + self._reget_length
                     self.opts.progress_obj.start(self._prog_reportname, 
-                                                 urllib.parse.unquote(self.url.decode("utf-8")),
+                                                 urllib.parse.unquote(self.url.decode('utf-8')),
                                                  self._prog_basename, 
                                                  size=size,
                                                  text=self.opts.text)
@@ -1505,7 +1505,7 @@ class PyCurlFileObject(object):
             
             code = self.http_code
             errcode = e.args[0]
-            errurl = urllib.parse.unquote(self.url.decode("utf-8"))
+            errurl = urllib.parse.unquote(self.url.decode('utf-8'))
             
             if self._error[0]:
                 errcode = self._error[0]
@@ -1595,7 +1595,7 @@ class PyCurlFileObject(object):
             if self._error[1]:
                 msg = self._error[1]
                 err = URLGrabError(14, msg)
-                err.url = urllib.parse.unquote(self.url.decode("utf-8"))
+                err.url = urllib.parse.unquote(self.url.decode('utf-8'))
                 raise err
 
     def _do_open(self):
