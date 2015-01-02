@@ -1237,7 +1237,7 @@ class PyCurlFileObject(object):
         self.fo = None
         self._hdr_dump = b''
         self._parsed_hdr = None
-        self.url = url
+        self.url = six.b(url)
         self.scheme = urllib.parse.urlsplit(self.url)[0]
         self.filename = filename
         self.append = False
